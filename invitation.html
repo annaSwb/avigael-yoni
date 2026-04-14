@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mariage Avigael & Yoni</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,500;0,600;1,400&family=Great+Vibes&family=Lato:wght@300;400&family=Pinyon+Script&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- STYLE GLOBAL --- */
+        html { scroll-behavior: smooth; }
+        body {
+            margin: 0; padding: 0;
+            background: #fdfaf3 url('https://www.transparenttextures.com/patterns/parchment.png');
+            font-family: 'Cormorant Garamond', serif;
+            color: #333; text-align: center; overflow-x: hidden;
+        }
+
+        /* --- ANIMATION PÉTALES D'OR --- */
+        .petal {
+            position: fixed; top: -10%; z-index: 9999;
+            user-select: none; pointer-events: none;
+            background: linear-gradient(135deg, #e5c064 0%, #ffffff 50%, #b38728 100%);
+            border-radius: 100% 10% 100% 10%; 
+            box-shadow: 0 0 5px rgba(214, 174, 87, 0.4);
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(0) rotate(0deg) scale(0.6); opacity: 0; }
+            20% { opacity: 1; }
+            100% { transform: translateY(110vh) rotate(720deg) scale(1); opacity: 0; }
+        }
+
+        /* --- BOUTON MUSIQUE --- */
+        #music-control {
+            position: fixed; bottom: 20px; right: 20px;
+            z-index: 10000; width: 45px; height: 45px;
+            background: #d1a965; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        #music-icon { color: white; font-size: 20px; font-family: sans-serif; font-weight: bold; }
+
+        /* --- NAVIGATION --- */
+        nav {
+            position: fixed; top: 0; width: 100%;
+            background: rgba(253, 250, 243, 0.9); padding: 15px 0;
+            z-index: 1000; border-bottom: 1px solid rgba(209, 169, 101, 0.2);
+            text-transform: uppercase; font-size: 11px; letter-spacing: 2px; font-family: 'Lato', sans-serif;
+        }
+        nav a { text-decoration: none; color: #d1a965; margin: 0 10px; }
+
+        /* --- HEADER --- */
+        header { padding: 100px 20px 40px; }
+        .bsd { font-weight: bold; margin: 20px 0 10px; }
+        .maguen-david-chic { width: 50px; height: 50px; margin: 10px auto; display: block; }
+
+        /* --- TYPOGRAPHIE PRÉNOMS --- */
+        .mariés-names { 
+            font-family: 'Pinyon Script', cursive; 
+            font-size: clamp(38px, 10vw, 70px); 
+            margin: 10px 0; 
+            color: #d1a965; 
+            line-height: 1.2;
+        }
+        
+        .ampersand {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: normal;
+            color: #d1a965;
+            margin: 0 10px;
+            font-size: 0.8em;
+            vertical-align: middle;
+        }
+
+        /* --- BLOCS FACE A FACE --- */
+        .family-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            max-width: 90%;
+            margin: 0 auto 40px;
+            gap: 10px;
+        }
+        .family-side {
+            width: 48%;
+            font-size: clamp(13px, 4vw, 18px); /* Plus gros */
+            line-height: 1.6;
+            text-align: center;
+        }
+
+        /* --- SECTIONS ET DETAILS --- */
+        section { padding: 60px 15px; max-width: 850px; margin: 0 auto; }
+        .card { background: rgba(255,255,255,0.3); padding: 30px 20px; border-radius: 5px; }
+        .section-title { font-family: 'Great Vibes', cursive; font-size: 45px; color: #d1a965; margin-bottom: 15px; }
+        .phrase-image { width: 100%; max-width: 600px; height: auto; margin: 10px auto 30px; display: block; }
+        
+        /* DETAILS ADRESSES ET TEXTES AGRANDIS */
+        .details-gros {
+            font-size: 22px; /* Plus gros */
+            line-height: 1.5;
+            margin: 15px 0;
+        }
+
+        .horaire-gras {
+            font-weight: 900 !important; /* Gras très prononcé */
+            font-size: 1.2em;
+            color: #000;
+        }
+
+        .card h3 { font-size: 32px; margin: 15px 0; font-weight: 600; }
+        
+        .btn-group { display: flex; justify-content: center; gap: 10px; margin-top: 25px; }
+        .btn {
+            padding: 12px 25px; text-decoration: none; font-size: 11px;
+            letter-spacing: 1px; text-transform: uppercase; font-family: 'Lato', sans-serif;
+            border: 1px solid #d1a965; border-radius: 3px; transition: 0.3s;
+        }
+        .btn-black { background: #d1a965; color: white; }
+        .btn-waze { border-color: #00d4ff; color: #00d4ff; }
+
+        .gold-line { width: 60px; height: 1px; background: #d1a965; margin: 30px auto; opacity: 0.4; }
+
+        /* --- FORMULAIRE --- */
+        .rsvp-box { background: rgba(255, 255, 255, 0.5); padding: 30px 15px; margin-top: 20px; border: 1px solid rgba(209, 169, 101, 0.2); }
+        .submit-btn { background: #d1a965; color: white; border: none; width: 100%; max-width: 400px; padding: 15px; cursor: pointer; font-weight: bold; font-size: 16px; }
+    </style>
+</head>
+<body>
+
+    <audio id="weddingMusic" loop><source src="musique.mp3" type="audio/mpeg"></audio>
+
+    <div id="music-control" onclick="toggleMusic()">
+        <span id="music-icon">||</span>
+    </div>
+
+    <nav>
+        <a href="#mairie">Mairie</a>
+        <a href="#houppa">Houppa</a>
+        <a href="#reponses">Répondre</a>
+    </nav>
+
+    <header>
+        <div class="bsd">בס”ד</div>
+        <svg class="maguen-david-chic" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M50 5L89.4025 74.25H10.5975L50 5Z" stroke="#d1a965" stroke-width="2"/>
+            <path d="M50 95L10.5975 25.75H89.4025L50 95Z" stroke="#d1a965" stroke-width="2"/>
+        </svg>
+        <h1 class="mariés-names">Avigael <span class="ampersand">&</span> Yoni</h1>
+    </header>
+
+    <section id="mairie">
+        <h2 class="section-title">Cérémonie Civile</h2>
+        <div class="card">
+            <p style="font-style: italic; font-size: 22px;">Avigael <span class="ampersand">&</span> Yoni se diront "Oui"</p>
+            <h3>Mardi 27 Juillet 2026</h3>
+            <div class="details-gros">
+                À <strong class="horaire-gras">10h30</strong><br>
+                <strong>Mairie du 17ᵉ arrondissement de Paris</strong><br>
+                16-20 Rue des Batignolles, 75017 Paris
+            </div>
+        </div>
+        <div class="btn-group">
+            <a href="https://www.waze.com/ul?q=16-20%20Rue%20des%20Batignolles%2075017%20Paris" target="_blank" class="btn btn-waze">Waze</a>
+            <a href="#reponses" class="btn btn-black">Répondre</a>
+        </div>
+        <div class="gold-line"></div>
+    </section>
+
+    <section id="houppa">
+        <h2 class="section-title">Cérémonie Religieuse</h2>
+        
+        <img src="phrase3.png" alt="Célébration" class="phrase-image">
+
+        <div class="family-section">
+            <div class="family-side">
+                Mamie Lisa Alloun<br>
+                Mamie Gisèle Lasry<br>
+                Robert Lasry<br>
+                Mr et Mme Alloun
+            </div>
+            <div class="family-side" style="border-left: 1px solid rgba(209,169,101,0.3);">
+                Raphaël Toledano<br>
+                Fanny Toledano<br>
+                Colette Haddad<br>
+                Claude Haddad<br>
+                Mr et Mme Haddad
+            </div>
+        </div>
+
+        <p style="font-style: italic; font-size: 22px; margin-bottom: 30px; padding: 0 10px;">
+            Remercient Hachem de vous convier au mariage de leurs enfants et petits enfants
+        </p>
+        
+        <div class="card">
+            <h3 class="mariés-names">Avigael <span class="ampersand">&</span> Yoni</h3>
+            <p style="font-size: 30px; margin-bottom: 20px;">אביגיל <span class="ampersand">&</span> יוני</p>
+            <div class="details-gros">
+                <strong>Jeudi 30 Juillet 2026</strong><br>
+                Le 16 Av 5786
+            </div>
+            <div class="gold-line"></div>
+            <div class="details-gros">
+                À <strong class="horaire-gras">17h30</strong> Houppa<br><br>
+                <strong>Le Manoir des Cygnes</strong><br>
+                150 Les Berges de Seine<br>91830 Le Coudray-Montceaux
+            </div>
+        </div>
+        <div class="btn-group">
+            <a href="https://www.waze.com/ul?ll=48.564619,2.490072&navigate=yes" target="_blank" class="btn btn-waze">Waze</a>
+            <a href="#reponses" class="btn btn-black">Répondre</a>
+        </div>
+    </section>
+
+    <section id="reponses">
+        <h2 class="section-title">Réponses</h2>
+        <div class="rsvp-box">
+            <form id="rsvpForm">
+                <div style="text-align: left; max-width: 400px; margin: 0 auto 20px;">
+                    <label style="font-size: 11px; text-transform: uppercase; color: #888;">Nom & Prénom</label>
+                    <input type="text" required style="width: 100%; padding: 10px; border: none; border-bottom: 1px solid #d1a965; background: transparent; font-size: 18px; outline: none;">
+                </div>
+                <div style="text-align: left; max-width: 400px; margin: 0 auto 20px;">
+                    <label style="font-size: 11px; text-transform: uppercase; color: #888;">Présence Mairie ?</label>
+                    <select id="m-select" onchange="document.getElementById('m-field').style.display=(this.value=='oui'?'block':'none')" style="width: 100%; padding: 10px; border: none; border-bottom: 1px solid #d1a965; background: transparent; font-size: 18px;">
+                        <option value="non">Non</option>
+                        <option value="oui">Oui</option>
+                    </select>
+                    <div id="m-field" style="display:none; margin-top: 10px;">
+                        <input type="number" min="1" placeholder="Nombre de personnes" style="width: 100%; padding: 10px; border: none; border-bottom: 1px solid #d1a965; background: transparent; font-size: 18px;">
+                    </div>
+                </div>
+                <div style="text-align: left; max-width: 400px; margin: 0 auto 20px;">
+                    <label style="font-size: 11px; text-transform: uppercase; color: #888;">Présence Houppa ?</label>
+                    <select id="h-select" onchange="document.getElementById('h-field').style.display=(this.value=='oui'?'block':'none')" style="width: 100%; padding: 10px; border: none; border-bottom: 1px solid #d1a965; background: transparent; font-size: 18px;">
+                        <option value="non">Non</option>
+                        <option value="oui">Oui</option>
+                    </select>
+                    <div id="h-field" style="display:none; margin-top: 10px;">
+                        <input type="number" min="1" placeholder="Nombre de personnes" style="width: 100%; padding: 10px; border: none; border-bottom: 1px solid #d1a965; background: transparent; font-size: 18px;">
+                    </div>
+                </div>
+                <button type="submit" class="submit-btn">CONFIRMER</button>
+            </form>
+        </div>
+    </section>
+
+    <script>
+        function createPetal() {
+            const petal = document.createElement('div');
+            petal.classList.add('petal');
+            const size = Math.random() * 10 + 7;
+            petal.style.width = size + 'px';
+            petal.style.height = (size * 1.5) + 'px';
+            petal.style.left = Math.random() * 100 + 'vw';
+            petal.style.animationDuration = Math.random() * 3 + 4 + 's';
+            document.body.appendChild(petal);
+            setTimeout(() => petal.remove(), 7000);
+        }
+        setInterval(createPetal, 400);
+
+        const music = document.getElementById('weddingMusic');
+        const icon = document.getElementById('music-icon');
+        let isPlaying = false;
+        window.addEventListener('scroll', () => { if (!isPlaying) { music.play().catch(() => {}); isPlaying = true; icon.innerText = "||"; } }, { once: true });
+        function toggleMusic() {
+            if (isPlaying) { music.pause(); icon.innerText = "▶"; } else { music.play(); icon.innerText = "||"; }
+            isPlaying = !isPlaying;
+        }
+    </script>
+</body>
+</html>

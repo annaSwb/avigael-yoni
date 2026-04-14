@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avigael & Yoni</title>
+    <style>
+        /* Style pour le fond texturé et le centrage parfait */
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #fdfaf3 url('https://www.transparenttextures.com/patterns/parchment.png');
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        .logo {
+            max-width: 250px; /* Taille du logo */
+            height: auto;
+            /* Animation d'apparition et de disparition douce */
+            animation: fadeInOut 3s ease-in-out forwards;
+        }
+
+        @keyframes fadeInOut {
+            0% { opacity: 0; transform: scale(0.9); }
+            30% { opacity: 1; transform: scale(1); }
+            80% { opacity: 1; transform: scale(1); }
+            100% { opacity: 0; transform: scale(1.05); }
+        }
+    </style>
+
+    <script>
+        setTimeout(function() {
+            window.location.href = "invitation.html";
+        }, 3000); // 3000 millisecondes = 3 secondes
+    </script>
+</head>
+<body>
+
+    <div class="container">
+        <img src="logo777.png" alt="Logo Avigael & Yoni" class="logo">
+    </div>
+
+</body>
+</html>
