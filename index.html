@@ -4,49 +4,404 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Avigael & Yoni</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;500;600&family=Great+Vibes&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
-        /* Style pour le fond texturé et le centrage parfait */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
         body, html {
-            margin: 0;
-            padding: 0;
             height: 100%;
+            font-family: 'Cormorant Garamond', serif;
+            background: #fdf8ee;
+            overflow: hidden;
+            color: #3a2e1e;
+        }
+
+        /* Texture parchemin subtile */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url('https://www.transparenttextures.com/patterns/parchment.png');
+            opacity: 0.35;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Bordure dorée décorative */
+        .border-frame {
+            position: fixed;
+            inset: 18px;
+            border: 1px solid rgba(201,168,76,0.3);
+            pointer-events: none;
+            z-index: 2;
+        }
+        .border-frame::before {
+            content: '';
+            position: absolute;
+            inset: 5px;
+            border: 1px solid rgba(201,168,76,0.15);
+        }
+
+        /* Coins décoratifs */
+        .corner {
+            position: fixed;
+            width: 50px;
+            height: 50px;
+            z-index: 3;
+            pointer-events: none;
+        }
+        .corner svg { width: 100%; height: 100%; }
+        .corner-tl { top: 12px; left: 12px; }
+        .corner-tr { top: 12px; right: 12px; transform: scaleX(-1); }
+        .corner-bl { bottom: 12px; left: 12px; transform: scaleY(-1); }
+        .corner-br { bottom: 12px; right: 12px; transform: scale(-1,-1); }
+
+        /* === PÉTALES === */
+        .petal {
+            position: fixed;
+            top: -5%;
+            z-index: 1;
+            pointer-events: none;
+            user-select: none;
+            border-radius: 100% 10% 100% 10%;
+            background: linear-gradient(135deg, #e8d08a 0%, #fdf8ee 45%, #c9a84c 100%);
+            box-shadow: 0 0 4px rgba(201,168,76,0.25);
+            animation: petalFall linear infinite;
+        }
+        @keyframes petalFall {
+            0%   { transform: translateY(0) translateX(0) rotate(0deg) scale(0.7); opacity: 0; }
+            10%  { opacity: 0.8; }
+            90%  { opacity: 0.5; }
+            100% { transform: translateY(105vh) translateX(30px) rotate(540deg) scale(1.1); opacity: 0; }
+        }
+
+        /* === CONTENU CENTRAL === */
+        .page {
+            position: relative;
+            z-index: 5;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 40px 20px;
+            animation: pageFadeIn 1.8s ease forwards;
+        }
+        @keyframes pageFadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* BSD */
+        .bsd {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 14px;
+            letter-spacing: 3px;
+            color: #c9a84c;
+            margin-bottom: 20px;
+            opacity: 0.8;
+        }
+
+        /* Étoile de David SVG */
+        .star-of-david {
+            width: 42px;
+            height: 42px;
+            margin: 0 auto 22px;
+            opacity: 0.85;
+        }
+
+        /* Trait décoratif */
+        .gold-divider {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 0 auto 24px;
+            width: 260px;
+        }
+        .gold-divider span {
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(to right, transparent, #c9a84c, transparent);
+        }
+        .gold-divider em {
+            color: #c9a84c;
+            font-size: 16px;
+            font-style: normal;
+        }
+
+        /* Noms */
+        .names-wrapper { margin-bottom: 8px; }
+        .names {
+            font-family: 'Great Vibes', cursive;
+            font-size: clamp(52px, 13vw, 88px);
+            color: #c9a84c;
+            line-height: 1.1;
+            letter-spacing: 1px;
+        }
+        .ampersand {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            color: #a68838;
+            font-size: 0.55em;
+            vertical-align: middle;
+            margin: 0 6px;
+        }
+
+        /* Date */
+        .date-label {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(10px, 2.5vw, 13px);
+            letter-spacing: 5px;
+            color: #8a7040;
+            text-transform: uppercase;
+            margin-bottom: 32px;
+        }
+
+        /* Countdown */
+        .countdown {
+            display: flex;
+            gap: clamp(14px, 4vw, 36px);
+            margin-bottom: 38px;
+            align-items: flex-end;
+        }
+        .count-block { text-align: center; }
+        .count-num {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(32px, 8vw, 56px);
+            font-weight: 500;
+            color: #3a2e1e;
+            line-height: 1;
+            display: block;
+        }
+        .count-label {
+            font-family: 'Lato', sans-serif;
+            font-size: 9px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #c9a84c;
+            margin-top: 6px;
+            display: block;
+        }
+        .count-dot {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(28px, 7vw, 48px);
+            color: #c9a84c;
+            opacity: 0.5;
+            margin-bottom: 6px;
+        }
+
+        /* Bouton */
+        .cta-btn {
+            display: inline-block;
+            text-decoration: none;
+            font-family: 'Lato', sans-serif;
+            font-size: 11px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: #fdf8ee;
+            background: #c9a84c;
+            border: none;
+            padding: 16px 42px;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s, letter-spacing 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        .cta-btn::before {
+            content: '';
+            position: absolute;
+            inset: 1px;
+            border: 1px solid rgba(255,255,255,0.25);
+            pointer-events: none;
+        }
+        .cta-btn:hover {
+            background: #b89640;
+            letter-spacing: 5px;
+            transform: translateY(-1px);
+        }
+
+        /* Bouton musique */
+        #music-btn {
+            position: fixed;
+            bottom: 28px;
+            right: 32px;
+            z-index: 100;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: rgba(201,168,76,0.15);
+            border: 1px solid rgba(201,168,76,0.5);
+            cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: #fdfaf3 url('https://www.transparenttextures.com/patterns/parchment.png');
-            overflow: hidden;
+            transition: background 0.3s;
         }
-
-        .container {
-            text-align: center;
-        }
-
-        .logo {
-            max-width: 250px; /* Taille du logo */
-            height: auto;
-            /* Animation d'apparition et de disparition douce */
-            animation: fadeInOut 3s ease-in-out forwards;
-        }
-
-        @keyframes fadeInOut {
-            0% { opacity: 0; transform: scale(0.9); }
-            30% { opacity: 1; transform: scale(1); }
-            80% { opacity: 1; transform: scale(1); }
-            100% { opacity: 0; transform: scale(1.05); }
-        }
+        #music-btn:hover { background: rgba(201,168,76,0.28); }
+        #music-btn svg { width: 18px; height: 18px; }
     </style>
-
-    <script>
-        setTimeout(function() {
-            window.location.href = "invitation.html";
-        }, 3000); // 3000 millisecondes = 3 secondes
-    </script>
 </head>
 <body>
 
-    <div class="container">
-        <img src="logo777.png" alt="Logo Avigael & Yoni" class="logo">
+    <!-- Bordure décorative -->
+    <div class="border-frame"></div>
+
+    <!-- Coins -->
+    <div class="corner corner-tl">
+        <svg viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M2 48 L2 8 Q2 2 8 2 L48 2" stroke="#c9a84c" stroke-width="1" fill="none" opacity="0.6"/>
+            <circle cx="8" cy="8" r="2" fill="#c9a84c" opacity="0.5"/>
+        </svg>
+    </div>
+    <div class="corner corner-tr">
+        <svg viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M2 48 L2 8 Q2 2 8 2 L48 2" stroke="#c9a84c" stroke-width="1" fill="none" opacity="0.6"/>
+            <circle cx="8" cy="8" r="2" fill="#c9a84c" opacity="0.5"/>
+        </svg>
+    </div>
+    <div class="corner corner-bl">
+        <svg viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M2 48 L2 8 Q2 2 8 2 L48 2" stroke="#c9a84c" stroke-width="1" fill="none" opacity="0.6"/>
+            <circle cx="8" cy="8" r="2" fill="#c9a84c" opacity="0.5"/>
+        </svg>
+    </div>
+    <div class="corner corner-br">
+        <svg viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M2 48 L2 8 Q2 2 8 2 L48 2" stroke="#c9a84c" stroke-width="1" fill="none" opacity="0.6"/>
+            <circle cx="8" cy="8" r="2" fill="#c9a84c" opacity="0.5"/>
+        </svg>
     </div>
 
+    <!-- Audio -->
+    <audio id="music" loop><source src="musique.mp3" type="audio/mpeg"></audio>
+
+    <!-- Bouton musique -->
+    <div id="music-btn" onclick="toggleMusic()" title="Musique">
+        <svg id="icon-pause" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="2" stroke-linecap="round">
+            <rect x="6" y="4" width="4" height="16" fill="#c9a84c" stroke="none"/>
+            <rect x="14" y="4" width="4" height="16" fill="#c9a84c" stroke="none"/>
+        </svg>
+        <svg id="icon-play" viewBox="0 0 24 24" fill="#c9a84c" style="display:none">
+            <polygon points="5,3 19,12 5,21"/>
+        </svg>
+    </div>
+
+    <!-- Page principale -->
+    <div class="page">
+        <div class="bsd">בס״ד</div>
+
+        <svg class="star-of-david" viewBox="0 0 100 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <polygon points="50,5 93,77 7,77" fill="none" stroke="#c9a84c" stroke-width="1.5"/>
+            <polygon points="50,105 7,33 93,33" fill="none" stroke="#c9a84c" stroke-width="1.5"/>
+        </svg>
+
+        <div class="gold-divider">
+            <span></span>
+            <em>✦</em>
+            <span></span>
+        </div>
+
+        <div class="names-wrapper">
+            <div class="names">Avigael <span class="ampersand">&</span> Yoni</div>
+        </div>
+
+        <div class="date-label">30 Juillet 2026</div>
+
+        <div class="countdown">
+            <div class="count-block">
+                <span class="count-num" id="cd-days">00</span>
+                <span class="count-label">Jours</span>
+            </div>
+            <div class="count-dot">·</div>
+            <div class="count-block">
+                <span class="count-num" id="cd-hrs">00</span>
+                <span class="count-label">Heures</span>
+            </div>
+            <div class="count-dot">·</div>
+            <div class="count-block">
+                <span class="count-num" id="cd-min">00</span>
+                <span class="count-label">Minutes</span>
+            </div>
+            <div class="count-dot">·</div>
+            <div class="count-block">
+                <span class="count-num" id="cd-sec">00</span>
+                <span class="count-label">Secondes</span>
+            </div>
+        </div>
+
+        <a href="invitation.html" class="cta-btn">Découvrir l'invitation</a>
+    </div>
+
+    <script>
+        // Countdown
+        const weddingDate = new Date('2026-07-30T17:30:00');
+        function updateCountdown() {
+            const now = new Date();
+            const diff = weddingDate - now;
+            if (diff <= 0) {
+                document.getElementById('cd-days').textContent = '00';
+                document.getElementById('cd-hrs').textContent = '00';
+                document.getElementById('cd-min').textContent = '00';
+                document.getElementById('cd-sec').textContent = '00';
+                return;
+            }
+            const d = Math.floor(diff / 86400000);
+            const h = Math.floor((diff % 86400000) / 3600000);
+            const m = Math.floor((diff % 3600000) / 60000);
+            const s = Math.floor((diff % 60000) / 1000);
+            document.getElementById('cd-days').textContent = String(d).padStart(2,'0');
+            document.getElementById('cd-hrs').textContent = String(h).padStart(2,'0');
+            document.getElementById('cd-min').textContent = String(m).padStart(2,'0');
+            document.getElementById('cd-sec').textContent = String(s).padStart(2,'0');
+        }
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+
+        // Pétales
+        function spawnPetal() {
+            const p = document.createElement('div');
+            p.className = 'petal';
+            const size = Math.random() * 9 + 6;
+            p.style.cssText = `
+                width:${size}px; height:${size*1.6}px;
+                left:${Math.random()*100}vw;
+                animation-duration:${Math.random()*4+5}s;
+                animation-delay:${Math.random()*2}s;
+                opacity:0;
+            `;
+            document.body.appendChild(p);
+            setTimeout(() => p.remove(), 9000);
+        }
+        setInterval(spawnPetal, 500);
+
+        // Musique
+        const music = document.getElementById('music');
+        const iconPause = document.getElementById('icon-pause');
+        const iconPlay = document.getElementById('icon-play');
+        let playing = false;
+
+        document.addEventListener('click', () => {
+            if (!playing) {
+                music.play().catch(() => {});
+                playing = true;
+                iconPause.style.display = '';
+                iconPlay.style.display = 'none';
+            }
+        }, { once: true });
+
+        function toggleMusic() {
+            if (playing) {
+                music.pause();
+                iconPause.style.display = 'none';
+                iconPlay.style.display = '';
+            } else {
+                music.play();
+                iconPause.style.display = '';
+                iconPlay.style.display = 'none';
+            }
+            playing = !playing;
+        }
+    </script>
 </body>
 </html>
