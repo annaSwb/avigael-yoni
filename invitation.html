@@ -2,693 +2,133 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Invitation — Avigael & Yoni</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;500;600&family=Great+Vibes&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Mariage de Avigael & Yoni</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:wght@400;600&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
     <style>
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        :root { --gold: #BFA466; --bg: #FFFEFA; --text: #5A5A5A; }
+        body { font-family: 'Cormorant Garamond', serif; background-color: var(--bg); color: var(--text); padding: 15px; margin: 0; overflow-x: hidden; }
+        .main-wrapper { max-width: 500px; margin: 0 auto; display: flex; flex-direction: column; gap: 40px; }
+        
+        /* Animation Pétales */
+        #petals-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9999; }
+        .petal { position: absolute; background: var(--gold); width: 8px; height: 12px; border-radius: 0 100% 0 100%; opacity: 0.5; animation: fall linear infinite; }
+        @keyframes fall { to { transform: translateY(100vh) rotate(360deg); } }
 
-        :root {
-            --gold: #c9a84c;
-            --gold-light: #e8d08a;
-            --gold-dark: #9e7e2e;
-            --beige: #fdf8ee;
-            --beige-dark: #f5edd6;
-            --text: #3a2e1e;
-            --text-light: #7a6a4a;
-        }
+        .card, .mairie-wrapper { position: relative; padding: 50px 20px; background: #fff; border: 1px solid #EBE3D3; text-align: center; }
+        h3 { font-size: 1.5rem; color: var(--gold); margin-bottom: 20px; text-transform: uppercase; letter-spacing: 2px; }
+        .couple-names { font-family: 'Great Vibes', cursive; font-size: 2.6rem; color: var(--gold); margin: 10px 0; }
+        
+        /* DÉCORATIONS LATÉRALES */
+        .deco-left, .deco-right { position: absolute; top: 0; bottom: 0; width: 40px; background-repeat: repeat-y; background-size: 100% auto; z-index: 0; pointer-events: none; }
+        .deco-left { left: 0; background-image: url('gauche.png'); }
+        .deco-right { right: 0; background-image: url('droite.png'); }
+        
+        .card-content { position: relative; z-index: 1; }
 
-        html { scroll-behavior: smooth; }
+        /* CORNERS HOUPPA */
+        .corner { position: absolute; width: 70px; z-index: 2; }
+        .tr { top: 5px; right: 5px; } .tl { top: 5px; left: 5px; }
+        .br { bottom: 5px; right: 5px; } .bl { bottom: 5px; left: 5px; }
 
-        body {
-            font-family: 'Cormorant Garamond', serif;
-            background: var(--beige);
-            background-image: url('https://www.transparenttextures.com/patterns/parchment.png');
-            color: var(--text);
-            overflow-x: hidden;
-        }
-
-        /* ===== PÉTALES ===== */
-        .petal {
-            position: fixed;
-            top: -5%;
-            z-index: 9999;
-            pointer-events: none;
-            border-radius: 100% 10% 100% 10%;
-            background: linear-gradient(135deg, #e8d08a 0%, #fdf8ee 45%, #c9a84c 100%);
-            animation: petalFall linear infinite;
-        }
-        @keyframes petalFall {
-            0%   { transform: translateY(0) rotate(0deg); opacity: 0; }
-            10%  { opacity: 0.7; }
-            90%  { opacity: 0.4; }
-            100% { transform: translateY(110vh) rotate(540deg); opacity: 0; }
-        }
-
-        /* ===== MUSIQUE ===== */
-        #music-btn {
-            position: fixed;
-            bottom: 24px;
-            right: 24px;
-            z-index: 10000;
-            width: 46px; height: 46px;
-            border-radius: 50%;
-            background: var(--gold);
-            border: none;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 20px rgba(201,168,76,0.4);
-            transition: transform 0.2s, background 0.2s;
-        }
-        #music-btn:hover { transform: scale(1.08); background: var(--gold-dark); }
-        #music-btn svg { width: 18px; height: 18px; }
-
-        /* ===== NAVIGATION ===== */
-        nav {
-            position: fixed;
-            top: 0; left: 0; right: 0;
-            z-index: 1000;
-            background: rgba(253,248,238,0.95);
-            backdrop-filter: blur(8px);
-            border-bottom: 1px solid rgba(201,168,76,0.2);
-            padding: 0;
-        }
-        nav ul {
-            display: flex;
-            justify-content: center;
-            gap: 0;
-            list-style: none;
-        }
-        nav a {
-            display: block;
-            text-decoration: none;
-            font-family: 'Lato', sans-serif;
-            font-size: 10px;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            color: var(--text-light);
-            padding: 18px 20px;
-            transition: color 0.2s;
-            border-bottom: 2px solid transparent;
-        }
-        nav a:hover { color: var(--gold); border-bottom-color: var(--gold); }
-
-        /* ===== HEADER ===== */
-        header {
-            padding: 110px 20px 60px;
-            text-align: center;
-            position: relative;
-        }
-        .header-bsd {
-            font-size: 13px;
-            letter-spacing: 3px;
-            color: var(--gold);
-            opacity: 0.8;
-            margin-bottom: 18px;
-        }
-        .header-star {
-            width: 38px; height: 38px;
-            margin: 0 auto 22px;
-        }
-        .header-names {
-            font-family: 'Great Vibes', cursive;
-            font-size: clamp(56px, 14vw, 96px);
-            color: var(--gold);
-            line-height: 1;
-            margin-bottom: 10px;
-        }
-        .header-amp {
-            font-family: 'Cormorant Garamond', serif;
-            font-style: italic;
-            color: var(--gold-dark);
-            font-size: 0.5em;
-            margin: 0 8px;
-            vertical-align: middle;
-        }
-        .header-sub {
-            font-family: 'Cinzel', serif;
-            font-size: clamp(10px, 2vw, 12px);
-            letter-spacing: 5px;
-            color: var(--text-light);
-            text-transform: uppercase;
-        }
-
-        /* ===== DIVIDERS ===== */
-        .divider {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            max-width: 320px;
-            margin: 30px auto;
-        }
-        .divider span { flex: 1; height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent); }
-        .divider em { color: var(--gold); font-style: normal; font-size: 14px; opacity: 0.7; }
-
-        /* ===== SECTIONS ===== */
-        section {
-            max-width: 680px;
-            margin: 0 auto;
-            padding: 60px 24px;
-            text-align: center;
-        }
-        .section-title {
-            font-family: 'Great Vibes', cursive;
-            font-size: clamp(38px, 9vw, 56px);
-            color: var(--gold);
-            margin-bottom: 6px;
-            line-height: 1.1;
-        }
-        .section-subtitle {
-            font-family: 'Cinzel', serif;
-            font-size: 10px;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            color: var(--text-light);
-            margin-bottom: 36px;
-        }
-
-        /* ===== CARTE ÉVÉNEMENT ===== */
-        .event-card {
-            background: rgba(255,255,255,0.45);
-            border: 1px solid rgba(201,168,76,0.25);
-            padding: 38px 28px;
-            position: relative;
-            margin-bottom: 28px;
-        }
-        .event-card::before, .event-card::after {
-            content: '✦';
-            position: absolute;
-            color: var(--gold);
-            opacity: 0.35;
-            font-size: 10px;
-        }
-        .event-card::before { top: 10px; left: 14px; }
-        .event-card::after  { bottom: 10px; right: 14px; }
-
-        .event-date {
-            font-family: 'Cinzel', serif;
-            font-size: clamp(16px, 4vw, 22px);
-            font-weight: 500;
-            color: var(--text);
-            margin-bottom: 8px;
-        }
-        .event-hebrew {
-            font-size: 14px;
-            color: var(--text-light);
-            font-style: italic;
-            margin-bottom: 20px;
-        }
-        .gold-line-short {
-            width: 50px;
-            height: 1px;
-            background: var(--gold);
-            opacity: 0.4;
-            margin: 18px auto;
-        }
-        .event-time {
-            font-family: 'Cinzel', serif;
-            font-size: clamp(28px, 7vw, 42px);
-            color: var(--gold);
-            font-weight: 400;
-            margin-bottom: 4px;
-        }
-        .event-venue {
-            font-size: clamp(17px, 4vw, 22px);
-            font-weight: 600;
-            color: var(--text);
-            margin-bottom: 6px;
-        }
-        .event-address {
-            font-size: clamp(15px, 3.5vw, 18px);
-            color: var(--text-light);
-            line-height: 1.6;
-        }
-
-        /* ===== BOUTONS ===== */
-        .btn-row {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            margin-top: 26px;
-            flex-wrap: wrap;
-        }
-        .btn {
-            text-decoration: none;
-            font-family: 'Lato', sans-serif;
-            font-size: 10px;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            padding: 14px 30px;
-            border: 1px solid;
-            transition: all 0.3s;
-            cursor: pointer;
-            background: transparent;
-            font-weight: 700;
-        }
-        .btn-gold {
-            border-color: var(--gold);
-            color: var(--beige);
-            background: var(--gold);
-        }
-        .btn-gold:hover { background: var(--gold-dark); border-color: var(--gold-dark); }
-        .btn-outline {
-            border-color: rgba(201,168,76,0.5);
-            color: var(--gold);
-        }
-        .btn-outline:hover { background: rgba(201,168,76,0.1); }
-        .btn-waze {
-            border-color: rgba(0,180,220,0.4);
-            color: #00b4dc;
-        }
-        .btn-waze:hover { background: rgba(0,180,220,0.08); }
-
-        /* ===== FAMILLES ===== */
-        .families {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 0;
-            margin: 30px 0;
-            border: 1px solid rgba(201,168,76,0.2);
-        }
-        .family-col {
-            padding: 28px 20px;
-            font-size: clamp(14px, 3.5vw, 18px);
-            line-height: 1.9;
-            color: var(--text);
-        }
-        .family-col:first-child {
-            border-right: 1px solid rgba(201,168,76,0.2);
-        }
-        .family-col-title {
-            font-family: 'Cinzel', serif;
-            font-size: 10px;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            color: var(--gold);
-            margin-bottom: 14px;
-            display: block;
-        }
-
-        /* ===== TEXTE CITATION ===== */
-        .citation {
-            font-style: italic;
-            font-size: clamp(17px, 4vw, 22px);
-            color: var(--text-light);
-            line-height: 1.7;
-            padding: 0 10px;
-            margin: 26px 0;
-        }
-
-        .names-hebrew {
-            font-size: clamp(22px, 5vw, 30px);
-            letter-spacing: 4px;
-            color: var(--gold);
-            margin: 16px 0;
-        }
-
-        /* ===== RSVP ===== */
-        .rsvp-wrap {
-            background: rgba(255,255,255,0.5);
-            border: 1px solid rgba(201,168,76,0.2);
-            padding: 40px 28px;
-            max-width: 520px;
-            margin: 0 auto;
-        }
-
-        .field-group {
-            text-align: left;
-            margin-bottom: 24px;
-        }
-        .field-label {
-            display: block;
-            font-family: 'Lato', sans-serif;
-            font-size: 10px;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            color: var(--text-light);
-            margin-bottom: 8px;
-        }
-        .field-input, .field-select, .field-textarea {
-            width: 100%;
-            padding: 12px 0;
-            border: none;
-            border-bottom: 1px solid rgba(201,168,76,0.4);
-            background: transparent;
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 18px;
-            color: var(--text);
-            outline: none;
-            transition: border-color 0.3s;
-        }
-        .field-input:focus, .field-select:focus, .field-textarea:focus {
-            border-bottom-color: var(--gold);
-        }
-        .field-select { cursor: pointer; }
-        .field-textarea { resize: none; height: 80px; padding: 12px 0; }
-
-        /* Sous-champs nombre */
-        .count-fields {
-            display: none;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-top: 14px;
-        }
-        .count-fields.visible { display: grid; }
-        .count-mini-label {
-            font-family: 'Lato', sans-serif;
-            font-size: 9px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: var(--text-light);
-            margin-bottom: 6px;
-            display: block;
-        }
-        .field-num {
-            width: 100%;
-            padding: 8px 0;
-            border: none;
-            border-bottom: 1px solid rgba(201,168,76,0.3);
-            background: transparent;
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 18px;
-            color: var(--text);
-            outline: none;
-        }
-
-        .submit-btn {
-            width: 100%;
-            background: var(--gold);
-            color: var(--beige);
-            border: none;
-            padding: 18px;
-            font-family: 'Lato', sans-serif;
-            font-size: 11px;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            cursor: pointer;
-            font-weight: 700;
-            transition: background 0.3s;
-            margin-top: 10px;
-        }
-        .submit-btn:hover { background: var(--gold-dark); }
-
-        /* Message succès */
-        .success-msg {
-            display: none;
-            font-style: italic;
-            font-size: 20px;
-            color: var(--gold);
-            padding: 30px;
-            text-align: center;
-        }
-
-        /* ===== FOOTER ===== */
-        footer {
-            text-align: center;
-            padding: 40px 20px 50px;
-            border-top: 1px solid rgba(201,168,76,0.15);
-        }
-        footer p {
-            font-family: 'Cinzel', serif;
-            font-size: 11px;
-            letter-spacing: 3px;
-            color: var(--text-light);
-            opacity: 0.7;
-        }
-
-        /* ===== RESPONSIVE ===== */
-        @media (max-width: 480px) {
-            nav a { padding: 16px 11px; font-size: 9px; letter-spacing: 2px; }
-            .families { grid-template-columns: 1fr; }
-            .family-col:first-child { border-right: none; border-bottom: 1px solid rgba(201,168,76,0.2); }
-            .event-card { padding: 28px 18px; }
-            .rsvp-wrap { padding: 30px 18px; }
-        }
+        /* IMAGES */
+        .phrase-img { width: 100%; border: none !important; display: block; margin: 10px 0; }
+        .img-full { width: 100%; border: 1px solid #EBE3D3; margin: 10px 0; display: block; }
+        
+        /* BOUTONS */
+        .btn-row { display: flex; gap: 10px; justify-content: center; margin-top: 20px; }
+        .btn { padding: 10px 15px; border: 1px solid var(--gold); color: var(--gold); text-decoration: none; font-size: 0.7rem; text-transform: uppercase; }
+        
+        /* FORMULAIRE */
+        .form-group { text-align: left; margin-bottom: 15px; }
+        input, select { width: 100%; padding: 12px; border: 1px solid #EBE3D3; background: #fdfdfd; font-family: inherit; }
+        .btn-submit { width: 100%; padding: 15px; background: var(--gold); color: #fff; border: none; cursor: pointer; }
     </style>
 </head>
 <body>
 
-    <!-- Audio -->
-    <audio id="music" loop><source src="musique.mp3" type="audio/mpeg"></audio>
+<div id="petals-container"></div>
+<audio id="bg-music" src="musique.mp3" loop></audio>
 
-    <!-- Bouton musique -->
-    <button id="music-btn" onclick="toggleMusic()" title="Musique">
-        <svg id="icon-pause" viewBox="0 0 24 24" fill="none">
-            <rect x="6" y="4" width="4" height="16" fill="#fdf8ee"/>
-            <rect x="14" y="4" width="4" height="16" fill="#fdf8ee"/>
-        </svg>
-        <svg id="icon-play" viewBox="0 0 24 24" fill="#fdf8ee" style="display:none">
-            <polygon points="5,3 19,12 5,21"/>
-        </svg>
-    </button>
-
-    <!-- Navigation -->
-    <nav>
-        <ul>
-            <li><a href="#mairie">Mairie</a></li>
-            <li><a href="#houppa">Houppa</a></li>
-            <li><a href="#rsvp">Répondre</a></li>
-        </ul>
-    </nav>
-
-    <!-- Header -->
-    <header>
-        <div class="header-bsd">בס״ד</div>
-
-        <svg class="header-star" viewBox="0 0 100 110" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <polygon points="50,5 93,77 7,77" fill="none" stroke="#c9a84c" stroke-width="1.5"/>
-            <polygon points="50,105 7,33 93,33" fill="none" stroke="#c9a84c" stroke-width="1.5"/>
-        </svg>
-
-        <div class="header-names">Avigael <span class="header-amp">&</span> Yoni</div>
-
-        <div class="header-sub">Union Sacrée · 30 Juillet 2026</div>
-
-        <div class="divider"><span></span><em>✦</em><span></span></div>
-    </header>
-
-    <!-- ===== MAIRIE ===== -->
-    <section id="mairie">
-        <div class="section-title">Cérémonie Civile</div>
-        <div class="section-subtitle">Union Civile</div>
-
-        <div class="event-card">
-            <div class="event-date">Mardi 27 Juillet 2026</div>
-
-            <div class="gold-line-short"></div>
-
-            <div class="event-time">10h30</div>
-            <div class="event-venue">Mairie du 17ᵉ arrondissement</div>
-            <div class="event-address">
-                16–20 Rue des Batignolles<br>75017 Paris
+<div class="main-wrapper">
+    <section class="mairie-wrapper">
+        <div class="deco-left"></div>
+        <div class="deco-right"></div>
+        <div class="card-content">
+            <div style="font-size: 2rem; color: var(--gold);">⚭</div>
+            <h3>Cérémonie Civile</h3>
+            <div class="couple-names">Avigael & Yoni</div>
+            <p><b>Mardi 27 Juillet 2026</b> à <b>10h30</b><br><b>Mairie du 17ᵉ arrondissement, Paris</b></p>
+            <div class="btn-row">
+                <a href="#" class="btn">📅 Bloquer</a>
+                <a href="https://waze.com/ul?q=16-20+Rue+des+Batignolles+75017+Paris" class="btn">📍 Waze</a>
             </div>
         </div>
-
-        <div class="btn-row">
-            <a href="https://www.waze.com/ul?q=16-20%20Rue%20des%20Batignolles%2075017%20Paris" target="_blank" class="btn btn-waze">📍 Waze</a>
-            <a href="#rsvp" class="btn btn-gold">Répondre</a>
-        </div>
-
-        <div class="divider"><span></span><em>✦</em><span></span></div>
     </section>
 
-    <!-- ===== HOUPPA ===== -->
-    <section id="houppa">
-        <div class="section-title">Cérémonie Religieuse</div>
-        <div class="section-subtitle">La Houppa & Soirée</div>
-
-        <!-- Image phrase (optionnelle) -->
-        <img src="phrase3.png" alt="" onerror="this.style.display='none'" style="max-width:100%; height:auto; margin-bottom:28px; opacity:0.85;">
-
-        <!-- Familles -->
-        <div class="families">
-            <div class="family-col">
-                <span class="family-col-title">Famille Alloun · Lasry</span>
-                Mamie Lisa Alloun<br>
-                Mamie Gisèle Lasry<br>
-                Robert Lasry<br>
-                M. & Mme Alloun
-            </div>
-            <div class="family-col">
-                <span class="family-col-title">Famille Toledano · Haddad</span>
-                Raphaël Toledano<br>
-                Fanny Toledano<br>
-                Colette Haddad<br>
-                Claude Haddad<br>
-                M. & Mme Haddad
+    <section class="card">
+        <img src="haut-droite.png" class="corner tr">
+        <img src="bas-droite.png" class="corner tl">
+        <img src="haut-gauche.png" class="corner br">
+        <img src="bas-gauche.png" class="corner bl">
+        <div class="card-content">
+            <img src="phrase3.png" class="phrase-img">
+            <img src="houppa.png" class="img-full">
+            <h3>Houppa & Soirée</h3>
+            <div class="couple-names">Avigael & Yoni</div>
+            <p><b>Jeudi 30 Juillet 2026</b> à <b>17h30</b><br><b>Le Manoir des Cygnes, Le Coudray-Montceaux</b></p>
+            <div class="btn-row">
+                <a href="#" class="btn">📅 Bloquer</a>
+                <a href="#" class="btn">📍 Waze</a>
             </div>
         </div>
-
-        <p class="citation">
-            Remercient Hachem de vous convier au mariage<br>de leurs enfants et petits-enfants
-        </p>
-
-        <div class="names-hebrew">אביגיל &nbsp;·&nbsp; יוני</div>
-
-        <div class="event-card" style="margin-top:30px;">
-            <div class="event-date">Jeudi 30 Juillet 2026</div>
-            <div class="event-hebrew">Le 16 Av 5786</div>
-
-            <div class="gold-line-short"></div>
-
-            <div class="event-time">17h30</div>
-            <div class="event-venue">Le Manoir des Cygnes</div>
-            <div class="event-address">
-                150 Les Berges de Seine<br>91830 Le Coudray-Montceaux
-            </div>
-        </div>
-
-        <div class="btn-row">
-            <a href="https://www.waze.com/ul?ll=48.564619,2.490072&navigate=yes" target="_blank" class="btn btn-waze">📍 Waze</a>
-            <a href="#rsvp" class="btn btn-gold">Répondre</a>
-        </div>
-
-        <div class="divider"><span></span><em>✦</em><span></span></div>
     </section>
 
-    <!-- ===== RSVP ===== -->
-    <section id="rsvp">
-        <div class="section-title">Réponses</div>
-        <div class="section-subtitle">Réponse souhaitée</div>
-
-        <div class="rsvp-wrap">
-            <form id="rsvpForm">
-                <!-- Nom -->
-                <div class="field-group">
-                    <label class="field-label">Nom & Prénom</label>
-                    <input type="text" class="field-input" placeholder="Votre nom complet" required>
-                </div>
-
-                <!-- Mairie -->
-                <div class="field-group">
-                    <label class="field-label">Présence à la Mairie — 27 Juillet</label>
-                    <select class="field-select" id="sel-mairie" onchange="toggle('mairie')">
-                        <option value="">Choisissez une option</option>
-                        <option value="oui">Oui, avec plaisir</option>
-                        <option value="non">Non, avec regret</option>
-                    </select>
-                    <div class="count-fields" id="fields-mairie">
-                        <div>
-                            <span class="count-mini-label">Adultes</span>
-                            <input type="number" min="0" class="field-num" placeholder="0">
-                        </div>
-                        <div>
-                            <span class="count-mini-label">Enfants</span>
-                            <input type="number" min="0" class="field-num" placeholder="0">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Houppa -->
-                <div class="field-group">
-                    <label class="field-label">Présence à la Houppa — 30 Juillet</label>
-                    <select class="field-select" id="sel-houppa" onchange="toggle('houppa')">
-                        <option value="">Choisissez une option</option>
-                        <option value="oui">Oui, avec plaisir</option>
-                        <option value="non">Non, avec regret</option>
-                    </select>
-                    <div class="count-fields" id="fields-houppa">
-                        <div>
-                            <span class="count-mini-label">Adultes</span>
-                            <input type="number" min="0" class="field-num" placeholder="0">
-                        </div>
-                        <div>
-                            <span class="count-mini-label">Enfants</span>
-                            <input type="number" min="0" class="field-num" placeholder="0">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Message -->
-                <div class="field-group">
-                    <label class="field-label">Un mot pour les mariés</label>
-                    <textarea class="field-textarea" placeholder="Votre message (optionnel)…"></textarea>
-                </div>
-
-                <button type="submit" class="submit-btn">Confirmer ma venue</button>
-            </form>
-
-            <div class="success-msg" id="success-msg">
-                🌿 Merci ! Nous avons bien reçu votre réponse.<br>
-                Hâte de vous retrouver !
+    <section class="card">
+        <h3>Confirmations</h3>
+        <form id="rsvpForm">
+            <div class="form-group">
+                <label>Nom & Prénoms</label>
+                <input type="text" required>
             </div>
-        </div>
-
-        <div class="divider"><span></span><em>✦</em><span></span></div>
+            <div class="form-group">
+                <label>Présent à la Mairie ?</label>
+                <select onchange="document.getElementById('nb-m').style.display = this.value === 'oui' ? 'block' : 'none'">
+                    <option value="non">Non</option>
+                    <option value="oui">Oui</option>
+                </select>
+                <input type="number" id="nb-m" style="display:none; margin-top:10px;" placeholder="Nb personnes">
+            </div>
+            <div class="form-group">
+                <label>Présent à la Houppa ?</label>
+                <select onchange="document.getElementById('nb-h').style.display = this.value === 'oui' ? 'block' : 'none'">
+                    <option value="non">Non</option>
+                    <option value="oui">Oui</option>
+                </select>
+                <input type="number" id="nb-h" style="display:none; margin-top:10px;" placeholder="Nb personnes">
+            </div>
+            <button type="submit" class="btn-submit">Confirmer ma présence</button>
+        </form>
     </section>
+</div>
 
-    <!-- Footer -->
-    <footer>
-        <p>Avigael & Yoni · 30 Juillet 2026</p>
-    </footer>
+<script>
+    // Animation Pétales
+    function createPetal() {
+        const p = document.createElement('div');
+        p.className = 'petal';
+        p.style.left = Math.random() * 100 + 'vw';
+        p.style.animationDuration = Math.random() * 5 + 5 + 's';
+        document.getElementById('petals-container').appendChild(p);
+        setTimeout(() => p.remove(), 10000);
+    }
+    setInterval(createPetal, 400);
 
-    <script>
-        // Pétales
-        function spawnPetal() {
-            const p = document.createElement('div');
-            p.className = 'petal';
-            const size = Math.random() * 9 + 6;
-            p.style.cssText = `
-                width:${size}px; height:${size*1.6}px;
-                left:${Math.random()*100}vw;
-                animation-duration:${Math.random()*4+5}s;
-                animation-delay:${Math.random()*1.5}s;
-                opacity:0;
-            `;
-            document.body.appendChild(p);
-            setTimeout(() => p.remove(), 9500);
-        }
-        setInterval(spawnPetal, 450);
-
-        // Musique
-        const music = document.getElementById('music');
-        const iconPause = document.getElementById('icon-pause');
-        const iconPlay  = document.getElementById('icon-play');
-        let playing = false;
-
-        window.addEventListener('scroll', () => {
-            if (!playing) {
-                music.play().catch(() => {});
-                playing = true;
-                iconPause.style.display = ''; iconPlay.style.display = 'none';
-            }
-        }, { once: true });
-
-        function toggleMusic() {
-            if (playing) { music.pause(); iconPause.style.display = 'none'; iconPlay.style.display = ''; }
-            else { music.play(); iconPause.style.display = ''; iconPlay.style.display = 'none'; }
-            playing = !playing;
-        }
-
-        // RSVP - afficher/masquer champs nombre
-        function toggle(event) {
-            const val = document.getElementById('sel-' + event).value;
-            const fields = document.getElementById('fields-' + event);
-            fields.classList.toggle('visible', val === 'oui');
-        }
-
-        // RSVP - soumission
-        document.getElementById('rsvpForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            this.style.display = 'none';
-            document.getElementById('success-msg').style.display = 'block';
-        });
-
-        // Nav active scroll
-        const sections = document.querySelectorAll('section[id]');
-        const navLinks = document.querySelectorAll('nav a');
-        window.addEventListener('scroll', () => {
-            let current = '';
-            sections.forEach(s => {
-                if (window.scrollY >= s.offsetTop - 80) current = s.id;
-            });
-            navLinks.forEach(a => {
-                a.style.color = a.getAttribute('href') === '#' + current ? '#c9a84c' : '';
-                a.style.borderBottomColor = a.getAttribute('href') === '#' + current ? '#c9a84c' : 'transparent';
-            });
-        });
-    </script>
+    // Audio
+    document.body.addEventListener('click', function() {
+        const music = document.getElementById('bg-music');
+        if (music.paused) music.play();
+    }, { once: true });
+</script>
 </body>
 </html>
