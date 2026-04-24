@@ -46,6 +46,7 @@
 
 <div id="petals-container"></div>
 <audio id="bg-music" src="musique.mp3" loop></audio>
+<button id="music-btn" onclick="" style="position:fixed; bottom:20px; right:20px; z-index:99999; width:46px; height:46px; border-radius:50%; background:var(--gold); border:none; color:#fff; font-size:1.2rem; display:flex; align-items:center; justify-content:center; cursor:pointer; transition:opacity 0.6s; box-shadow:0 2px 10px rgba(0,0,0,0.15);">♪</button>
 
 <nav class="navbar">
     <a href="#mairie">Mairie</a>
@@ -168,9 +169,32 @@
         .catch(error => { console.error('Erreur', error); alert("Erreur technique. Veuillez réessayer."); btn.innerText = originalText; btn.style.opacity = "1"; });
     }
     function showQty(divId, show) { document.getElementById(divId).style.display = show ? "block" : "none"; }
+    const music = document.getElementById('bg-music');
+    const btn = document.getElementById('music-btn');
     let musicStarted = false;
-    window.addEventListener('scroll', () => {
-        if (!musicStarted) { const music = document.getElementById('bg-music'); music.play().catch(e => console.log("Lecture auto bloquée")); musicStarted = true; }
+
+    function startMusic() {
+        if (musicStarted) return;
+        music.play().then(() => {
+            musicStarted = true;
+            btn.style.opacity = '0';
+            setTimeout(() => btn.style.display = 'none', 600);
+        }).catch(() => {
+            btn.style.display = 'flex';
+        });
+    }
+
+    window.addEventListener('scroll', startMusic, { once: true });
+    document.addEventListener('touchstart', startMusic, { once: true });
+    document.addEventListener('click', startMusic, { once: true });
+
+    btn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        music.play().then(() => {
+            musicStarted = true;
+            btn.style.opacity = '0';
+            setTimeout(() => btn.style.display = 'none', 600);
+        });
     });
     function createPetal() {
         const p = document.createElement('div');
