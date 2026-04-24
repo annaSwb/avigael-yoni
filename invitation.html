@@ -87,8 +87,8 @@
             <h3>Houppa & Soirée</h3>
             
             <div class="parents-container">
-                <div>Gad & Florence Alloun</div>
-                <div>Michael & Laurence Haddad</div>
+                <div>Gad & Florence<br><span style="display:block; margin-top:2px;">Alloun</span></div>
+                <div>Michael & Laurence<br><span style="display:block; margin-top:2px;">Haddad</span></div>
             </div>
             
             <p style="margin-bottom: 20px;">
@@ -110,27 +110,34 @@
         <h3>Confirmations</h3>
         <form id="rsvp-form" onsubmit="envoyerReponse(event)">
             <script>const SCRIPT_URL = "METTRE_VOTRE_URL_GOOGLE_SHEET_ICI";</script>
-            
+
             <div class="form-group">
-                <label>Nom & Prénoms</label>
-                <input type="text" name="Nom" required>
+                <label>Votre Nom & Prénom</label>
+                <input type="text" name="Nom_Prenom" required>
             </div>
+
             <div class="form-group">
-                <label>Présent à la Mairie ?</label>
-                <select name="Mairie" onchange="toggleCount('nb-m', this.value === 'oui')">
+                <label>Présence à la Mairie ?</label>
+                <select name="Mairie_Presence" onchange="showQty('m_qty', this.value === 'oui')">
                     <option value="non">Non</option>
                     <option value="oui">Oui</option>
                 </select>
-                <input type="number" name="Nb_Mairie" id="nb-m" style="display:none; margin-top:10px;" placeholder="Nombres de personnes">
+                <div id="m_qty" style="display:none; margin-top:10px;">
+                    <input type="number" name="Mairie_Personnes" placeholder="Nombre de personnes">
+                </div>
             </div>
+
             <div class="form-group">
-                <label>Présent à la Houppa ?</label>
-                <select name="Houppa" onchange="toggleCount('nb-h', this.value === 'oui')">
+                <label>Présence à la Houppa ?</label>
+                <select name="Houppa_Presence" onchange="showQty('h_qty', this.value === 'oui')">
                     <option value="non">Non</option>
                     <option value="oui">Oui</option>
                 </select>
-                <input type="number" name="Nb_Houppa" id="nb-h" style="display:none; margin-top:10px;" placeholder="Nombres de personnes">
+                <div id="h_qty" style="display:none; margin-top:10px;">
+                    <input type="number" name="Houppa_Personnes" placeholder="Nombre de personnes">
+                </div>
             </div>
+
             <div class="form-group">
                 <label>Un petit mot pour les mariés ?</label>
                 <textarea name="Message" rows="3" placeholder="Votre message..."></textarea>
@@ -160,7 +167,7 @@
         })
         .catch(error => { console.error('Erreur', error); alert("Erreur technique. Veuillez réessayer."); btn.innerText = originalText; btn.style.opacity = "1"; });
     }
-    function toggleCount(divId, show) { var div = document.getElementById(divId); div.style.display = show ? "block" : "none"; }
+    function showQty(divId, show) { document.getElementById(divId).style.display = show ? "block" : "none"; }
     let musicStarted = false;
     window.addEventListener('scroll', () => {
         if (!musicStarted) { const music = document.getElementById('bg-music'); music.play().catch(e => console.log("Lecture auto bloquée")); musicStarted = true; }
