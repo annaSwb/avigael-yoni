@@ -31,30 +31,26 @@
 
         .page-turn-active { transform: rotateY(-130deg); }
 
-        .border-overlay {
+       .border-overlay {
     position: absolute;
-    /* On réduit la marge à 5px sur les 4 côtés */
     inset: 5px; 
-    
-    background-image: url('cadre.png');
+    background-image: url('cadre.jpeg');
     background-position: center;
-    /* On demande à l'image de s'adapter à cet espace plus grand */
     background-size: contain; 
     background-repeat: no-repeat;
-    z-index: 20;
+    z-index: 1; /* Réduit ici */
     pointer-events: none;
 }
 
-        .card-wrapper {
-            position: absolute;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            width: 85%; 
-            max-width: 350px; 
-            text-align: center;
-            z-index: 10;
-        }
-
+.card-wrapper {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 85%; 
+    max-width: 350px; 
+    text-align: center;
+    z-index: 10; /* Augmenté ici */
+}
         .photo-container {
             width: 90px;
             margin: 0 auto 10px auto;

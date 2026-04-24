@@ -18,24 +18,20 @@
         .petal { position: absolute; background: var(--gold); width: 8px; height: 12px; border-radius: 0 100% 0 100%; opacity: 0.5; animation: fall linear infinite; }
         @keyframes fall { to { transform: translateY(100vh) rotate(360deg); } }
 
-        .card, .mairie-wrapper { position: relative; padding: 50px 20px; background: #fff; border: 1px solid #EBE3D3; text-align: center; }
+        .card { position: relative; padding: 50px 20px; background: #fff; border: 1px solid #EBE3D3; text-align: center; }
         h3 { font-size: 1.5rem; color: var(--gold); margin-bottom: 25px; text-transform: uppercase; letter-spacing: 2px; }
         .couple-names { font-family: 'Great Vibes', cursive; font-size: 2.6rem; color: var(--gold); margin: 15px 0; }
         
-        /* Nouveau style pour les parents */
         .parents-container { display: flex; justify-content: space-between; margin-bottom: 25px; font-size: 0.95rem; }
         .parents-container div { width: 48%; }
 
-        .deco-left, .deco-right { position: absolute; top: 0; bottom: 0; width: 40px; background-repeat: repeat-y; background-size: 100% auto; z-index: 0; pointer-events: none; }
-        .deco-left { left: 0; background-image: url('gauche.png'); }
-        .deco-right { right: 0; background-image: url('droite.png'); }
-        
         .corner { position: absolute; width: 70px; z-index: 2; }
         .tr { top: 5px; right: 5px; } .tl { top: 5px; left: 5px; }
         .br { bottom: 5px; right: 5px; } .bl { bottom: 5px; left: 5px; }
 
         .card-content { position: relative; z-index: 1; }
-        .phrase-img { width: 100%; display: block; margin: 15px 0; }
+        /* Style réduit pour l'arc de cercle */
+        .phrase-img { width: 60%; display: block; margin: 10px auto; }
         .img-full { width: 100%; border: 1px solid #EBE3D3; margin: 15px 0; display: block; }
         
         .btn-row { display: flex; gap: 10px; justify-content: center; margin-top: 25px; }
@@ -59,24 +55,26 @@
 
 <div class="main-wrapper">
     <section id="mairie" class="card">
-    <img src="haut-droite.png" class="corner tr">
-    <img src="bas-droite.png" class="corner tl">
-    <img src="haut-gauche.png" class="corner br">
-    <img src="bas-gauche.png" class="corner bl">
-    <div class="card-content">
-        <h3>Cérémonie Civile</h3>
-        <div class="couple-names">Avigael & Yoni</div>
-        <p><b>Mardi 27 Juillet 2026</b> à <b>10h30</b><br>
-        <b>Mairie du 17ᵉ arrondissement, Paris</b><br><br>
-        <p style="font-style: italic; color: #888; border-top: 1px solid #EBE3D3; border-bottom: 1px solid #EBE3D3; padding: 15px 0; margin: 20px 0;">
-        À l'issue de la cérémonie, nous aurons le plaisir de partager avec vous un vin d'honneur afin de célébrer ensemble ce moment privilégié.
-        </p>
-        <div class="btn-row">
-            <a href="#" class="btn">📅 Bloquer</a>
-            <a href="https://waze.com/ul?q=16-20+Rue+des+Batignolles+75017+Paris" class="btn">📍 Waze</a>
+        <img src="haut-droite.png" class="corner tr">
+        <img src="bas-droite.png" class="corner tl">
+        <img src="haut-gauche.png" class="corner br">
+        <img src="bas-gauche.png" class="corner bl">
+        <div class="card-content">
+            <h3>Cérémonie Civile</h3>
+            <div class="couple-names">Avigael & Yoni</div>
+            <p style="font-size: 1.2rem; margin: 10px 0;">Se diront "oui"</p>
+            <p><b>Le Mardi 27 Juillet 2026</b> à <b>10h30</b><br>
+            <b>Mairie du 17ᵉ arrondissement</b><br>
+            16-20 Rue des Batignolles, 75017 Paris<br><br>
+            <p style="font-style: italic; color: #888; border-top: 1px solid #EBE3D3; border-bottom: 1px solid #EBE3D3; padding: 15px 0; margin: 20px 0;">
+            À l'issue de la cérémonie, nous aurons le plaisir de partager avec vous un vin d'honneur afin de célébrer ensemble ce moment privilégié.
+            </p>
+            <div class="btn-row">
+                <a href="#" class="btn">📅 Bloquer</a>
+                <a href="https://waze.com/ul?q=16-20+Rue+des+Batignolles+75017+Paris" class="btn">📍 Waze</a>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 
     <section id="houppa" class="card">
         <img src="haut-droite.png" class="corner tr">
@@ -89,22 +87,21 @@
             <h3>Houppa & Soirée</h3>
             
             <div class="parents-container">
-                <div>Mr & Mme Alloun</div>
-                <div>Mr et Mme Haddad</div>
+                <div>Gad et Florence Alloun</div>
+                <div>Michael et Laurence Haddad</div>
             </div>
             
             <p style="margin-bottom: 20px;">
-                Remercient Hachem de vous convier au mariage de leurs enfants et petits-enfants
+                Remercient Hachem de vous convier au mariage de leurs enfants, petits-enfants et grands-parents.
             </p>
             <div class="couple-names">Avigael & Yoni</div>
             <div class="couple-names">יוני & אביגיל</div>
-            <p style="font-size: 1.2rem;">
-                <b>Jeudi 30 Juillet 2026</b> à <b>17h00</b><br>
-                <b>Le Manoir des Cygnes, Le Coudray-Montceaux</b>
-            </p>
+            <p><b>Jeudi 30 Juillet 2026</b> à <b>17h30</b><br>
+            <b>Le Manoir des Cygnes</b><br>
+            10 Rue des Cygnes, 91250 Le Coudray-Montceaux</p>
             <div class="btn-row">
                 <a href="#" class="btn">📅 Bloquer</a>
-                <a href="#" class="btn">📍 Waze</a>
+                <a href="https://waze.com/ul?q=10+Rue+des+Cygnes+91250+Le+Coudray-Montceaux" class="btn">📍 Waze</a>
             </div>
         </div>
     </section>
@@ -112,6 +109,8 @@
     <section id="reponse" class="card">
         <h3>Confirmations</h3>
         <form id="rsvp-form" onsubmit="envoyerReponse(event)">
+            <script>const SCRIPT_URL = "METTRE_VOTRE_URL_GOOGLE_SHEET_ICI";</script>
+            
             <div class="form-group">
                 <label>Nom & Prénoms</label>
                 <input type="text" name="Nom" required>
@@ -142,8 +141,6 @@
 </div>
 
 <script>
-    const SCRIPT_URL = "";
-    
     function envoyerReponse(e) {
         e.preventDefault();
         var form = document.getElementById('rsvp-form');
@@ -151,8 +148,8 @@
         var originalText = btn.innerText;
         btn.innerText = "Envoi en cours...";
         btn.style.opacity = "0.7";
-        
         var data = new FormData(form);
+        
         fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: data })
         .then(response => {
             alert("Mazal Tov ! Votre réponse a bien été enregistrée.");
@@ -161,28 +158,13 @@
             btn.style.background = "#4a8b91";
             setTimeout(() => { btn.innerText = originalText; btn.style.opacity = "1"; btn.style.background = ""; }, 3000);
         })
-        .catch(error => {
-            console.error('Erreur', error);
-            alert("Erreur technique. Veuillez réessayer.");
-            btn.innerText = originalText;
-            btn.style.opacity = "1";
-        });
+        .catch(error => { console.error('Erreur', error); alert("Erreur technique. Veuillez réessayer."); btn.innerText = originalText; btn.style.opacity = "1"; });
     }
-
-    function toggleCount(divId, show) {
-        var div = document.getElementById(divId);
-        div.style.display = show ? "block" : "none";
-    }
-
+    function toggleCount(divId, show) { var div = document.getElementById(divId); div.style.display = show ? "block" : "none"; }
     let musicStarted = false;
     window.addEventListener('scroll', () => {
-        if (!musicStarted) {
-            const music = document.getElementById('bg-music');
-            music.play().catch(e => console.log("Lecture auto bloquée"));
-            musicStarted = true;
-        }
+        if (!musicStarted) { const music = document.getElementById('bg-music'); music.play().catch(e => console.log("Lecture auto bloquée")); musicStarted = true; }
     });
-
     function createPetal() {
         const p = document.createElement('div');
         p.className = 'petal';
